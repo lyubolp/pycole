@@ -2,6 +2,8 @@
 
 **Python Code Length Analyzer** - A command-line tool to analyze Python files and projects for code metrics.
 
+Disclaimer: This tool is created using Claude Sonnet 4.5.
+
 ## Features
 
 `pycole` analyzes Python files or directories and provides:
