@@ -3,8 +3,6 @@
 from pathlib import Path
 from dataclasses import dataclass
 
-import pytest
-
 from pycole.formatter import format_metrics_output, format_metrics_csv
 
 

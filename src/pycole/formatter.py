@@ -45,5 +45,8 @@ def format_metrics_csv(path: Path, metrics) -> str:
         CSV formatted string with metrics
     """
     header = "path,total_lines,code_lines,statements,test_lines,test_code_lines"
-    data = f"{path},{metrics.total_lines},{metrics.code_lines},{metrics.statements},{metrics.test_lines},{metrics.test_code_lines}"
+    data = (
+        f"{path},{metrics.total_lines},{metrics.code_lines},"
+        f"{metrics.statements},{metrics.test_lines},{metrics.test_code_lines}"
+    )
     return f"{header}\n{data}"

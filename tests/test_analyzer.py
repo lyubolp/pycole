@@ -2,7 +2,9 @@
 
 import tempfile
 from pathlib import Path
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
+
+import pytest
 
 from pycole.analyzer import (
     analyze_file,
@@ -123,7 +125,7 @@ def test_analyze_file_with_blank_lines():
     x = 1
 
     y = 2
-    
+
     return x + y
 """
         )
@@ -240,8 +242,6 @@ def test_analyze_path_with_directory():
 
 def test_analyze_path_with_invalid_path():
     """Test analyze_path with a path that doesn't exist."""
-    import pytest
-
     # Create a path that doesn't exist
     invalid_path = Path("/nonexistent/path/to/file.py")
 

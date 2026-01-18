@@ -1,7 +1,10 @@
 """Tests for the pycole CLI module."""
 
+# pylint: disable=duplicate-code
+
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from click.testing import CliRunner
 
@@ -106,10 +109,6 @@ def test_cli_value_error_handling():
     runner = CliRunner()
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        # Create a special file (not regular file or directory)
-        from unittest.mock import patch
-        import sys
-
         # We'll use a temporary file and patch analyze_path to raise ValueError
         dirpath = Path(tmpdir)
         (dirpath / "test.py").write_text("pass")
@@ -128,8 +127,6 @@ def test_cli_unexpected_error_handling():
     with tempfile.TemporaryDirectory() as tmpdir:
         dirpath = Path(tmpdir)
         (dirpath / "test.py").write_text("pass")
-
-        from unittest.mock import patch
 
         with patch("pycole.cli.analyze_path", side_effect=RuntimeError("Unexpected error")):
             result = runner.invoke(main, [str(dirpath)])

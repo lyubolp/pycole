@@ -32,10 +32,10 @@ def main(path: Path, output_format: str):
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)
         sys.exit(1)
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         click.echo(f"Unexpected error: {e}", err=True)
         sys.exit(1)
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pylint: disable=no-value-for-parameter

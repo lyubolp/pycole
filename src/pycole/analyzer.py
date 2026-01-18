@@ -86,7 +86,8 @@ def analyze_directory(dirpath: Path) -> CodeMetrics:
 
     for filepath in python_files:
         # Skip virtual environments and common ignore patterns
-        if any(part in filepath.parts for part in [".venv", "venv", "__pycache__", ".git", "node_modules"]):
+        skip_patterns = [".venv", "venv", "__pycache__", ".git", "node_modules"]
+        if any(part in filepath.parts for part in skip_patterns):
             continue
 
         metrics = analyze_file(filepath)
@@ -109,7 +110,6 @@ def analyze_path(path: Path) -> CodeMetrics:
     """Analyze a file or directory and return metrics."""
     if path.is_file():
         return analyze_file(path)
-    elif path.is_dir():
+    if path.is_dir():
         return analyze_directory(path)
-    else:
-        raise ValueError(f"Path {path} is neither a file nor a directory")
+    raise ValueError(f"Path {path} is neither a file nor a directory")
