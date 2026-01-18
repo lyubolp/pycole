@@ -1,0 +1,24 @@
+[project]
+name = "pycole"
+version = "0.1.0"
+description = "Python code length analyzer - analyze lines of code, statements, and test code in Python projects"
+readme = "README.md"
+authors = [
+    { name = "Lyuboslav Karev", email = "lyubo.karev@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.1.7",
+]
+
+[project.scripts]
+pycole = "pycole.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.21,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
