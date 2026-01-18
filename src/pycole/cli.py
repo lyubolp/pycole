@@ -6,11 +6,19 @@ from pathlib import Path
 import click
 
 from .analyzer import analyze_path
+from .formatter import format_metrics_output
 
 
 @click.command()
 @click.argument("path", type=click.Path(exists=True, path_type=Path))
-def main(path: Path):
+@click.option(
+    "--format",
+    "output_format",
+    type=click.Choice(["text", "csv"], case_sensitive=False),
+    default="text",
+    help="Output format (text or csv)",
+)
+def main(path: Path, output_format: str):
     """
     Analyze Python code metrics for a file or directory.
 
@@ -18,17 +26,8 @@ def main(path: Path):
     """
     try:
         metrics = analyze_path(path)
-
-        click.echo(f"\n{'=' * 60}")
-        click.echo(f"Python Code Analysis: {path}")
-        click.echo(f"{'=' * 60}\n")
-
-        click.echo(f"Total lines of code:                    {metrics.total_lines:>10,}")
-        click.echo(f"Lines without comments/blanks:          {metrics.code_lines:>10,} (excl. tests)")
-        click.echo(f"Number of statements:                   {metrics.statements:>10,} (excl. tests)")
-        click.echo(f"Total lines of test code:               {metrics.test_lines:>10,}")
-        click.echo(f"Test lines without comments/blanks:     {metrics.test_code_lines:>10,}")
-        click.echo(f"\n{'=' * 60}\n")
+        output = format_metrics_output(path, metrics, output_format)
+        click.echo(output)
 
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)
